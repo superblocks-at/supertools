@@ -1,5 +1,5 @@
 import loglevel from "loglevel";
-const log = loglevel.getLogger("ViewportViewer");
+const log = loglevel.getLogger("JsonEditorWrapper");
 log.setLevel("debug");
 import React, { useState } from "react";
 

@@ -1,5 +1,5 @@
 import loglevel from "loglevel";
-const log = loglevel.getLogger("SelectedRecordViewer");
+const log = loglevel.getLogger("SelectedFieldViewer");
 log.setLevel("debug");
 
 import React from "react";
@@ -8,16 +8,19 @@ import { base } from "@airtable/blocks";
 import { useLoadable, useWatchable, useRecordById } from "@airtable/blocks/ui";
 
 import JsonEditorWrapper from "./JsonEditorWrapper";
-import { recordJSON } from "./helpers";
-import { Table } from "@airtable/blocks/models";
+import { fieldJSON } from "./helpers";
 
-export default function SelectedRecordViewer() {
-  log.debug("SelectedRecordViewer.render");
+export default function SelectedFieldViewer() {
+  log.debug("SelectedFieldViewer.render");
 
   // load selected records and fields
   useLoadable(cursor);
   // re-render whenever the list of selected records or fields changes
-  useWatchable(cursor, ["activeTableId", "selectedRecordIds"]);
+  useWatchable(cursor, [
+    "activeTableId",
+    "selectedRecordIds",
+    "selectedFieldIds"
+  ]);
 
   const table = base.getTableByIdIfExists(cursor.activeTableId as any);
 
@@ -28,24 +31,23 @@ export default function SelectedRecordViewer() {
       : ("" as any)
   );
 
-  if (!record) {
+  if (!record || cursor.selectedFieldIds.length == 0) {
     return (
       <div style={{ width: "100%", padding: "12px", textAlign: "center" }}>
-        "No record selected"
+        "No field selected"
       </div>
     );
   }
 
+  // @ts-ignore
+  const field = table.getFieldById(cursor.selectedFieldIds[0]);
+
   const json = {
-    id: record.id,
-    createdTime: record.createdTime.toISOString(),
-    name: record.name,
-    url: record.url,
-    commentCount: record.commentCount,
-    fields: recordJSON(table as Table, record)
+    value: record.getCellValue(field),
+    ...fieldJSON(field)
   };
 
-  log.debug("SelectedRecordViewer, json:", json);
+  log.debug("SelectedFieldViewer, json:", json);
 
   return <JsonEditorWrapper mode="view" value={json} />;
 }
