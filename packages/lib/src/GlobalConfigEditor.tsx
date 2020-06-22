@@ -1,15 +1,35 @@
+import loglevel from "loglevel";
+const log = loglevel.getLogger("GlobalConfigEditor");
+log.setLevel("debug");
+
 import React from "react";
 import { useGlobalConfig } from "@airtable/blocks/ui";
 import JsonEditorWrapper from "./JsonEditorWrapper";
-import { GlobalConfigUpdate } from "@airtable/blocks/dist/types/src/types/global_config";
+import { globalConfig } from "@airtable/blocks";
 
 export default function GlobalConfigEditor() {
-  const globalConfig = useGlobalConfig();
-  const kvStore: object = (globalConfig as any)._kvStore;
+  const reactiveGlobalConfig = useGlobalConfig();
+  const someValue1 = globalConfig.get("isEnforced");
+  const someValue2 = reactiveGlobalConfig.get("isEnforced");
+  log.debug("GlobalConfigEditor.render, isEnforced:", someValue1, someValue2);
+  const kvStore: object = (reactiveGlobalConfig as any)._kvStore;
+  log.debug(
+    "GlobalConfigEditor.render, reactiveGlobalConfig._kvStore",
+    (reactiveGlobalConfig as any)._kvStore,
+    "reactiveGlobalConfig:",
+    reactiveGlobalConfig
+  );
 
-  const handleChange = (value: object) => {
-    console.log("handleChange", value);
-    const paths: GlobalConfigUpdate[] = [];
+  log.debug(
+    "GlobalConfigEditor.render, globalConfig._kvStore",
+    (globalConfig as any)._kvStore,
+    "globalConfig:",
+    globalConfig
+  );
+
+  const handleChange = (value: { [key: string]: any }) => {
+    log.debug("GlobalConfigEditor.handleChange, value:", value);
+    const paths: any = [];
     for (const key in value) {
       if (key.length == 0) continue;
       paths.push({
@@ -19,7 +39,7 @@ export default function GlobalConfigEditor() {
     }
     const deletedPaths = [];
     for (const existingKey in kvStore) {
-      if (!paths.find((obj) => obj.path[0] == existingKey)) {
+      if (!paths.find((obj: any) => obj.path[0] == existingKey)) {
         deletedPaths.push({
           path: [existingKey] as any,
           value: undefined
@@ -27,7 +47,7 @@ export default function GlobalConfigEditor() {
       }
     }
     paths.splice(0, 0, ...deletedPaths);
-    globalConfig.setPathsAsync(paths);
+    reactiveGlobalConfig.setPathsAsync(paths);
   };
 
   return (

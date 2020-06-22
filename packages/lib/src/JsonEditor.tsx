@@ -72,8 +72,8 @@ modes.allValues = values;
  * @property {Function} [jsonEditorRef] - callback to get jsonEditor reference
  */
 export default class Editor extends Component {
-  props: any;
-  err: Error;
+  props: any | undefined;
+  err: Error | undefined;
   htmlElementRef: any;
   jsonEditor: any;
 

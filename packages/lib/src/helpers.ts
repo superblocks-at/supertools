@@ -1,8 +1,8 @@
 import { Table, Field, Record } from "@airtable/blocks/models";
 
 export function recordJSON(table: Table, record: Record): any {
-  const json = {};
-  table.fields.forEach((field) => {
+  const json: any = {};
+  table.fields.forEach((field: any) => {
     json[field.name] = record.getCellValue(field);
   });
   return json;
@@ -16,7 +16,7 @@ export function fieldJSON(field: Field): any {
     isComputed: field.isComputed,
     options: field.options,
     description: field.description,
-    availableAggregators: field.availableAggregators.map((aggregator) => {
+    availableAggregators: field.availableAggregators.map((aggregator: any) => {
       return {
         displayName: aggregator.displayName,
         shortDisplayName: aggregator.shortDisplayName,

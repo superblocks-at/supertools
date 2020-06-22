@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 				},
 			},
 		},
-		touch: ["packages/block/frontend/index.js"],
+		touch: ["packages/url/frontend/index.js"],
 	});
 
 	// Load the plugin that provides the "watch" task.

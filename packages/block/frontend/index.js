@@ -2,72 +2,24 @@ import { globalConfig } from "@airtable/blocks";
 import { initializeBlock } from "@airtable/blocks/ui";
 import React from "react";
 import { Supertools, Position } from "@superblocks-at/supertools";
+import BlockActiveTableViewer from "./ActiveTableViewer";
 
 function BlockWithSupertools() {
 	return (
 		<>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
-			<div>Type 'd' 3 times fast to open supertools</div>
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center",
+					alignItems: "center",
+					width: "100%",
+					height: "100vh",
+				}}
+			>
+				<span>Type 'ddd' fast to open/close supertools</span>
+				{/* <BlockActiveTableViewer /> */}
+			</div>
 			<Supertools
 				shortcutKey="d"
 				timeout="500"

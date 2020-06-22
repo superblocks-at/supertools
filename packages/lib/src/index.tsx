@@ -20,7 +20,7 @@ export const Supertools = ({
 }: SupertoolsProps) => {
   const [keystrokes, setKeystrokes] = useState<number>(0);
   const [timeoutID, setTimeoutID] = useState<number | null>(null);
-  const [display, setDisplay] = useState<boolean>(true);
+  const [display, setDisplay] = useState<boolean>(false);
   log.debug(
     "Supertools.render, shortcutKey:",
     shortcutKey,

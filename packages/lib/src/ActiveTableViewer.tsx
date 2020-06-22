@@ -13,9 +13,6 @@ import { Table, View } from "@airtable/blocks/models";
 export default function ActiveTableViewer() {
   log.debug("ActiveTableViewer.render");
 
-  // load selected records and fields
-  // useLoadable(cursor);
-
   // re-render whenever the list of selected records or fields changes
   useWatchable(cursor, ["activeTableId"]);
 
@@ -48,5 +45,9 @@ function ActiveTableViewerImpl({ table }: { table: Table }) {
 
   log.debug("ActiveTableViewerImpl, json:", json);
 
-  return <JsonEditorWrapper mode="view" value={json} />;
+  return (
+    <div>
+      <JsonEditorWrapper mode="view" value={json} />
+    </div>
+  );
 }
