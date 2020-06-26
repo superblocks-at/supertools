@@ -18,7 +18,7 @@ function BlockWithSupertools() {
 				}}
 			>
 				<span>Type 'ddd' fast to open/close supertools</span>
-				{/* <BlockActiveTableViewer /> */}
+				<BlockActiveTableViewer />
 			</div>
 			<Supertools
 				shortcutKey="d"
