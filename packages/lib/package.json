@@ -71,7 +71,6 @@
     "dist"
   ],
   "dependencies": {
-    "@airtable/blocks": "0.0.52",
     "antd": "^4.3.4",
     "jsoneditor": "^9.0.0",
     "loglevel": "^1.6.8",
