@@ -1,10 +1,10 @@
 # @superblocks-at/supertools
 
-> Airtable dev tools - an npm package that can be added to any block and includes the following tools:
+Airtable dev tools - an npm package that can be added to any block and includes the following tools:
 
-1. A [GlobalConfig](https://airtable.com/developers/blocks/api/models/GlobalConfig) editor - this package allows you to view AND edit global config in development mode AND in release mode.
+1. A [GlobalConfig](https://airtable.com/developers/blocks/api/models/GlobalConfig) editor - so you can view AND edit global config in development mode AND in release mode.
 
-2. An api [models](https://airtable.com/developers/blocks/api/models/Base) explorer - with support for viewing the property values of the following models, exactly as you get them from the api:
+2. An [api](https://airtable.com/developers/blocks/api/models/Base) explorer - with support for viewing the property values of the following models, exactly as you get them from the api:
 
 - Base
 - Active table
@@ -79,12 +79,18 @@ MIT
 
 Are more than welcome. The goal is to have the community expand the package with additional tools that can increase the productivity of Airtable custom blocks developers. Some ideas that come to mind:
 
-- Add Links to relevant blocks api documentation section wherever appropriate
+- Add Links to the relevant blocks api documentation section wherever appropriate.
 - Add the ability to execute api functions which also shows correct usage through pre-populated code snippets.
 
 ### Development environment setup instructions for contributors
 
-Library was created using [create-react-library](https://www.npmjs.com/package/create-react-library), which uses [microbundle](https://www.npmjs.com/package/microbundle), which uses [rollup](https://www.npmjs.com/package/rollup) for bundling.
+This is a monorepo composed of the following packages:
+
+- [lib](packages/lib) - the supertools npm package
+- [block](packages/block) - the api explorer block
+- [url](packages/url) - Airtable's open source URL preview block, with supertools included.
+
+The supertools npm package was created using [create-react-library](https://www.npmjs.com/package/create-react-library), which uses [microbundle](https://www.npmjs.com/package/microbundle), which uses [rollup](https://www.npmjs.com/package/rollup) for bundling.
 
 1. Init dev env
 
