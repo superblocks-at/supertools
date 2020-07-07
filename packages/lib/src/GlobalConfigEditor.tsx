@@ -1,6 +1,6 @@
 import loglevel from "loglevel";
 const log = loglevel.getLogger("GlobalConfigEditor");
-log.setLevel("debug");
+// log.setLevel("debug");
 
 import React from "react";
 import { useGlobalConfig } from "@airtable/blocks/ui";

@@ -1,6 +1,6 @@
 import loglevel from "loglevel";
 const log = loglevel.getLogger("SelectedFieldViewer");
-log.setLevel("debug");
+// log.setLevel("debug");
 
 import React from "react";
 import { cursor } from "@airtable/blocks";

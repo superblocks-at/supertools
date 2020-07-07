@@ -1,6 +1,6 @@
 import loglevel from "loglevel";
 const log = loglevel.getLogger("JsonEditor");
-log.setLevel("debug");
+// log.setLevel("debug");
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";

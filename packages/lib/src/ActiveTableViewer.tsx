@@ -1,6 +1,6 @@
 import loglevel from "loglevel";
 const log = loglevel.getLogger("ActiveTableViewer");
-log.setLevel("debug");
+// log.setLevel("debug");
 
 import React from "react";
 import { base, cursor } from "@airtable/blocks";

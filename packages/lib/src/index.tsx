@@ -1,26 +1,31 @@
 import loglevel from "loglevel";
 const log = loglevel.getLogger("Supertools");
-log.setLevel("debug");
+// log.setLevel("debug");
 
 import React, { useEffect, useState } from "react";
 import MainView, { Position, MainViewProps } from "./MainView";
 
 export { Position } from "./MainView";
 
+export { default as SuspenseWrapper } from "./SuspenseWrapper";
+
 export interface SupertoolsProps extends MainViewProps {
   shortcutKey?: string;
   timeout?: number;
+  show?: boolean;
 }
 
 export const Supertools = ({
   shortcutKey = "d",
   timeout = 500,
   position = Position.bottom,
-  overlap = 100
+  overlap = 100,
+  show = false,
+  about
 }: SupertoolsProps) => {
   const [keystrokes, setKeystrokes] = useState<number>(0);
   const [timeoutID, setTimeoutID] = useState<number | null>(null);
-  const [display, setDisplay] = useState<boolean>(false);
+  const [display, setDisplay] = useState<boolean>(show);
   log.debug(
     "Supertools.render, shortcutKey:",
     shortcutKey,
@@ -82,5 +87,5 @@ export const Supertools = ({
     return null;
   }
 
-  return <MainView position={position} overlap={overlap} />;
+  return <MainView position={position} overlap={overlap} about={about} />;
 };

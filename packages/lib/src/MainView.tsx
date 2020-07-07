@@ -1,6 +1,6 @@
 import loglevel from "loglevel";
 const log = loglevel.getLogger("MainView");
-log.setLevel("debug");
+// log.setLevel("debug");
 
 import * as CSS from "csstype";
 import React from "react";
@@ -8,7 +8,7 @@ import { Layout, Tabs } from "antd";
 const { TabPane } = Tabs;
 const { Content } = Layout;
 import styled from "styled-components";
-import { loadCSSFromURLAsync } from "@airtable/blocks/ui";
+import { loadCSSFromURLAsync, useSynced } from "@airtable/blocks/ui";
 import GlobalConfigEditor from "./GlobalConfigEditor";
 import ViewportViewer from "./ViewportViewer";
 import SessionViewer from "./SessionViewer";
@@ -17,12 +17,14 @@ import ActiveTableViewer from "./ActiveTableViewer";
 import SelectedRecordViewer from "./SelectedRecordViewer";
 import ActiveViewViewer from "./ActiveViewViewer";
 import SelectedFieldViewer from "./SelectedFieldViewer";
+import SuspenseWrapper from "./SuspenseWrapper";
 
 loadCSSFromURLAsync(
   "https://cdnjs.cloudflare.com/ajax/libs/antd/4.3.4/antd.min.css"
 ).then(() => log.debug("antd css loaded"));
 
 enum TabTypes {
+  about = "about",
   globalConfig = "globalConfig",
   activeTable = "activeTable",
   activeView = "activeView",
@@ -63,11 +65,13 @@ export enum Position {
 export interface MainViewProps {
   position?: Position;
   overlap?: number;
+  about?: any;
 }
 
 const MainView = ({
   position = Position.top,
-  overlap = 100
+  overlap = 100,
+  about
 }: MainViewProps) => {
   log.debug("MainView.render");
 
@@ -120,43 +124,112 @@ const MainView = ({
     }
   }
 
+  const spinWrapperStyle: CSS.Properties = {
+    // position: "fixed",
+    // margin: 0,
+    // padding: 0,
+    // zIndex: 200,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: style.width,
+    height: `calc(${style.height} - 38px)`
+  };
+
+  const [activeTab, setActiveTab] = useSynced([
+    "config",
+    "supertools",
+    "activeTab"
+  ]);
+
+  // if (style.top != null) {
+  //   spinWrapperStyle.top = "38px";
+  // } else {
+  //   spinWrapperStyle.bottom = style.bottom;
+  // }
+  // if (style.left != null) {
+  //   spinWrapperStyle.left = style.left;
+  // } else {
+  //   spinWrapperStyle.right = style.right;
+  // }
+
+  // eslint-disable-next-line
   return (
     <Layout style={style}>
-      <Content style={{ width: "100%", height: "100%", margin: 0, padding: 0 }}>
+      <Content
+        style={{
+          width: "100%",
+          height: "100%",
+          margin: 0,
+          padding: 0
+        }}
+      >
         <StyledTabs
           size="small"
           type="card"
-          defaultActiveKey={TabTypes.globalConfig}
+          /*
+          // @ts-ignore */
+          activeKey={activeTab}
+          defaultActiveKey={
+            about != null ? TabTypes.about : TabTypes.globalConfig
+          }
+          onChange={setActiveTab}
           height={style.height}
           style={{ margin: 0, padding: 0 }}
         >
+          {about != null ? (
+            <TabPane
+              style={{ margin: 0, padding: 0 }}
+              tab="About"
+              key={TabTypes.about}
+            >
+              {about}
+            </TabPane>
+          ) : null}
           <TabPane
             style={{ margin: 0, padding: 0 }}
             tab="GlobalConfig"
             key={TabTypes.globalConfig}
           >
-            <GlobalConfigEditor />
+            <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+              <GlobalConfigEditor />
+            </SuspenseWrapper>
           </TabPane>
           <TabPane tab="Active table" key={TabTypes.activeTable}>
-            <ActiveTableViewer />
+            <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+              <ActiveTableViewer />
+            </SuspenseWrapper>
           </TabPane>
           <TabPane tab="Active view" key={TabTypes.activeView}>
-            <ActiveViewViewer />
+            <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+              <ActiveViewViewer />
+            </SuspenseWrapper>
           </TabPane>
           <TabPane tab="Selected record" key={TabTypes.selectedRecord}>
-            <SelectedRecordViewer />
+            <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+              <SelectedRecordViewer />
+            </SuspenseWrapper>
           </TabPane>
           <TabPane tab="Selected field" key={TabTypes.selectedField}>
-            <SelectedFieldViewer />
+            <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+              <SelectedFieldViewer />
+            </SuspenseWrapper>
           </TabPane>
           <TabPane tab="Cursor" key={TabTypes.cursor}>
-            <CursorViewer />
+            <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+              <CursorViewer />
+            </SuspenseWrapper>
           </TabPane>
           <TabPane tab="Session" key={TabTypes.session}>
-            <SessionViewer />
+            <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+              <SessionViewer />
+            </SuspenseWrapper>
           </TabPane>
           <TabPane tab="Viewport" key={TabTypes.viewport}>
-            <ViewportViewer />
+            <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+              <ViewportViewer />
+            </SuspenseWrapper>
           </TabPane>
         </StyledTabs>
       </Content>

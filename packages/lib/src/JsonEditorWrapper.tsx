@@ -1,6 +1,7 @@
 import loglevel from "loglevel";
 const log = loglevel.getLogger("JsonEditorWrapper");
-log.setLevel("debug");
+// log.setLevel("debug");
+
 import React, { useState } from "react";
 
 import { loadCSSFromString, loadCSSFromURLAsync } from "@airtable/blocks/ui";

@@ -1,6 +1,6 @@
 import loglevel from "loglevel";
 const log = loglevel.getLogger("ViewportViewer");
-log.setLevel("debug");
+// log.setLevel("debug");
 
 import React from "react";
 import { useViewport } from "@airtable/blocks/ui";

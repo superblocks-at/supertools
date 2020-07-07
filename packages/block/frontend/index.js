@@ -4,6 +4,41 @@ import React from "react";
 import { Supertools, Position } from "@superblocks-at/supertools";
 import BlockActiveTableViewer from "./ActiveTableViewer";
 
+function About() {
+	return (
+		<Box padding={3} display="flex" flexDirection="column" alignItems="center">
+			<Text size="large" textAlign="center">
+				The functionality of this block is provided by the{" "}
+				<Link
+					size="large"
+					href="https://www.npmjs.com/package/@superblocks-at/supertools"
+					target="_blank"
+				>
+					@superblocks-at/supertools
+				</Link>{" "}
+				npm package.
+			</Text>
+			<Text size="large" textAlign="center" marginTop={3}>
+				This package can be added to any custom block. In addition to an API
+				explorer it also provides a <strong>GlobalConfig editor</strong> that
+				will be available in development AND in release mode.
+			</Text>
+			<Text size="large" textAlign="center" marginTop={3}>
+				To add supertools to <strong>your custom block</strong>, follow the
+				installation instructions on the package's{" "}
+				<Link
+					size="large"
+					href="https://www.npmjs.com/package/@superblocks-at/supertools"
+					target="_blank"
+				>
+					npm page
+				</Link>
+				.
+			</Text>
+		</Box>
+	);
+}
+
 function BlockWithSupertools() {
 	return (
 		<>
@@ -23,7 +58,12 @@ function BlockWithSupertools() {
 				/>
 				<Heading size="xsmall" marginLeft={2}>
 					API explorer by{" "}
-					<Link variant="light" href="https://superblocks.at" fontWeight="bold">
+					<Link
+						variant="light"
+						fontWeight="bold"
+						href="https://superblocks.at"
+						target="_blank"
+					>
 						Superblocks.at
 					</Link>
 				</Heading>
@@ -37,7 +77,11 @@ function BlockWithSupertools() {
 				<Heading>About this block</Heading>
 				<Text size="large" textAlign="center" marginTop={3}>
 					The functionality of this block is provided by the{" "}
-					<Link href="https://www.npmjs.com/package/@superblocks-at/supertools">
+					<Link
+						size="large"
+						href="https://www.npmjs.com/package/@superblocks-at/supertools"
+						target="_blank"
+					>
 						@superblocks-at/supertools
 					</Link>{" "}
 					npm package.
@@ -50,7 +94,11 @@ function BlockWithSupertools() {
 				<Text size="large" textAlign="center" marginTop={3}>
 					To add supertools to your custom block, follow the installation
 					instructions on the package's{" "}
-					<Link href="https://www.npmjs.com/package/@superblocks-at/supertools">
+					<Link
+						size="large"
+						href="https://www.npmjs.com/package/@superblocks-at/supertools"
+						target="_blank"
+					>
 						npm page
 					</Link>
 					.
@@ -61,15 +109,15 @@ function BlockWithSupertools() {
 				</Text>
 			</Box>
 			<Supertools
-			// shortcutKey="d"
-			// timeout="500"
-			// position={Position.bottom}
-			// overlap={70}
+				show={true}
+				about={<About />}
+				// shortcutKey="d"
+				// timeout="500"
+				// position={Position.bottom}
+				// overlap={70}
 			/>
 		</>
 	);
 }
 
-globalConfig
-	.setAsync("config", "myConfig")
-	.then(() => initializeBlock(() => <BlockWithSupertools />));
+initializeBlock(() => <BlockWithSupertools />);
