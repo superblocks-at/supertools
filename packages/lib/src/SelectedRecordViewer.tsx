@@ -30,8 +30,17 @@ export default function SelectedRecordViewer() {
 
   if (!record) {
     return (
-      <div style={{ width: "100%", padding: "12px", textAlign: "center" }}>
-        "No record selected"
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        <span>No record selected</span>
       </div>
     );
   }
