@@ -1,4 +1,10 @@
 {
+	"private": true,
+	"version": "0.9.0",
+	"homepage": "https://github.com/superblocks-at/api-explorer-block",
+	"repository": "github.com:superblocks-at/api-explorer-block",
+	"bugs": "https://github.com/superblocks-at/api-explorer-block/issues",
+	"displayName": "API Explorer Block by Superblocks.at",
 	"dependencies": {
 		"@airtable/blocks": "0.0.52",
 		"@superblocks-at/supertools": "file:../lib",

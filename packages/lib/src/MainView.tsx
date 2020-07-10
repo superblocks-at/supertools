@@ -1,6 +1,6 @@
 import loglevel from "loglevel";
 const log = loglevel.getLogger("MainView");
-// log.setLevel("debug");
+log.setLevel("debug");
 
 import * as CSS from "csstype";
 import React, { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { Layout, Tabs } from "antd";
 const { TabPane } = Tabs;
 const { Content } = Layout;
 import styled from "styled-components";
-import { loadCSSFromURLAsync, useSynced, Loader } from "@airtable/blocks/ui";
+import { loadCSSFromURLAsync, Loader } from "@airtable/blocks/ui";
 import GlobalConfigEditor from "./GlobalConfigEditor";
 import ViewportViewer from "./ViewportViewer";
 import SessionViewer from "./SessionViewer";
@@ -19,7 +19,7 @@ import ActiveViewViewer from "./ActiveViewViewer";
 import SelectedFieldViewer from "./SelectedFieldViewer";
 import SuspenseWrapper from "./SuspenseWrapper";
 
-enum TabTypes {
+enum TabType {
   about = "about",
   globalConfig = "globalConfig",
   activeTable = "activeTable",
@@ -49,6 +49,30 @@ const StyledTabs = styled(Tabs)<{ height: string }>`
     z-index: 100;
     border: none;
   }
+
+  .jsoneditor-tree::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .jsoneditor-tree::-webkit-scrollbar-button {
+    display: none;
+    height: 0;
+    width: 0;
+  }
+
+  .jsoneditor-tree::-webkit-scrollbar-thumb {
+    background-color: hsla(0, 0%, 0%, 0.35);
+    background-clip: padding-box;
+    border: 3px solid rgba(0, 0, 0, 0);
+    border-radius: 6px;
+    min-height: 36px;
+  }
 `;
 
 export enum Position {
@@ -74,16 +98,20 @@ const MainView = ({
   const [antCssLoaded, setAndCssLoaded] = useState(false);
 
   useEffect(() => {
+    log.debug("MainView.useEffect");
     loadCSSFromURLAsync(
       "https://cdnjs.cloudflare.com/ajax/libs/antd/4.3.4/antd.min.css"
     ).then(() => setAndCssLoaded(true));
   }, []);
 
-  const [activeTab, setActiveTab] = useSynced([
-    "config",
-    "supertools",
-    "activeTab"
-  ]);
+  const [activeTab, setActiveTab] = useState<string>(
+    about != null ? TabType.about : TabType.globalConfig
+  );
+  // const [activeTab, setActiveTab] = useSynced([
+  //   "config",
+  //   "supertools",
+  //   "activeTab"
+  // ]);
 
   const style: CSS.Properties = {
     position: "fixed",
@@ -134,7 +162,7 @@ const MainView = ({
     }
   }
 
-  const spinWrapperStyle: CSS.Properties = {
+  const centeredContentStyle: CSS.Properties = {
     // position: "fixed",
     // margin: 0,
     // padding: 0,
@@ -171,7 +199,7 @@ const MainView = ({
         }}
       >
         {!antCssLoaded ? (
-          <div style={spinWrapperStyle}>
+          <div style={centeredContentStyle}>
             <Loader />
           </div>
         ) : (
@@ -182,7 +210,7 @@ const MainView = ({
           // @ts-ignore */
             activeKey={activeTab}
             defaultActiveKey={
-              about != null ? TabTypes.about : TabTypes.globalConfig
+              about != null ? TabType.about : TabType.globalConfig
             }
             onChange={setActiveTab}
             height={style.height}
@@ -192,7 +220,7 @@ const MainView = ({
               <TabPane
                 style={{ margin: 0, padding: 0 }}
                 tab="About"
-                key={TabTypes.about}
+                key={TabType.about}
               >
                 {about}
               </TabPane>
@@ -200,44 +228,48 @@ const MainView = ({
             <TabPane
               style={{ margin: 0, padding: 0 }}
               tab="GlobalConfig"
-              key={TabTypes.globalConfig}
+              key={TabType.globalConfig}
             >
-              <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
                 <GlobalConfigEditor />
               </SuspenseWrapper>
             </TabPane>
-            <TabPane tab="Active table" key={TabTypes.activeTable}>
-              <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+            <TabPane tab="Active table" key={TabType.activeTable}>
+              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
                 <ActiveTableViewer />
               </SuspenseWrapper>
             </TabPane>
-            <TabPane tab="Active view" key={TabTypes.activeView}>
-              <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+            <TabPane tab="Active view" key={TabType.activeView}>
+              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
                 <ActiveViewViewer />
               </SuspenseWrapper>
             </TabPane>
-            <TabPane tab="Selected record" key={TabTypes.selectedRecord}>
-              <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
-                <SelectedRecordViewer />
+            <TabPane tab="Selected record" key={TabType.selectedRecord}>
+              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
+                <SelectedRecordViewer
+                  centeredContentStyle={centeredContentStyle}
+                />
               </SuspenseWrapper>
             </TabPane>
-            <TabPane tab="Selected field" key={TabTypes.selectedField}>
-              <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
-                <SelectedFieldViewer />
+            <TabPane tab="Selected field" key={TabType.selectedField}>
+              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
+                <SelectedFieldViewer
+                  centeredContentStyle={centeredContentStyle}
+                />
               </SuspenseWrapper>
             </TabPane>
-            <TabPane tab="Cursor" key={TabTypes.cursor}>
-              <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+            <TabPane tab="Cursor" key={TabType.cursor}>
+              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
                 <CursorViewer />
               </SuspenseWrapper>
             </TabPane>
-            <TabPane tab="Session" key={TabTypes.session}>
-              <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+            <TabPane tab="Session" key={TabType.session}>
+              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
                 <SessionViewer />
               </SuspenseWrapper>
             </TabPane>
-            <TabPane tab="Viewport" key={TabTypes.viewport}>
-              <SuspenseWrapper spinWrapperStyle={spinWrapperStyle}>
+            <TabPane tab="Viewport" key={TabType.viewport}>
+              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
                 <ViewportViewer />
               </SuspenseWrapper>
             </TabPane>

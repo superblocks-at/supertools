@@ -11,7 +11,13 @@ import JsonEditorWrapper from "./JsonEditorWrapper";
 import { recordJSON } from "./helpers";
 import { Table } from "@airtable/blocks/models";
 
-export default function SelectedRecordViewer() {
+import * as CSS from "csstype";
+
+export default function SelectedRecordViewer({
+  centeredContentStyle
+}: {
+  centeredContentStyle: CSS.Properties;
+}) {
   log.debug("SelectedRecordViewer.render");
 
   // load selected records and fields
@@ -30,16 +36,7 @@ export default function SelectedRecordViewer() {
 
   if (!record) {
     return (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-      >
+      <div style={centeredContentStyle}>
         <span>No record selected</span>
       </div>
     );

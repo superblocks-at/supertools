@@ -7,10 +7,16 @@ import { cursor } from "@airtable/blocks";
 import { base } from "@airtable/blocks";
 import { useLoadable, useWatchable, useRecordById } from "@airtable/blocks/ui";
 
+import * as CSS from "csstype";
+
 import JsonEditorWrapper from "./JsonEditorWrapper";
 import { fieldJSON } from "./helpers";
 
-export default function SelectedFieldViewer() {
+export default function SelectedFieldViewer({
+  centeredContentStyle
+}: {
+  centeredContentStyle: CSS.Properties;
+}) {
   log.debug("SelectedFieldViewer.render");
 
   // load selected records and fields
@@ -33,8 +39,8 @@ export default function SelectedFieldViewer() {
 
   if (!record || cursor.selectedFieldIds.length == 0) {
     return (
-      <div style={{ width: "100%", padding: "12px", textAlign: "center" }}>
-        "No field selected"
+      <div style={centeredContentStyle}>
+        <span>No field selected</span>
       </div>
     );
   }
