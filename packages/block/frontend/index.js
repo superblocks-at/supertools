@@ -7,7 +7,13 @@ import { name, version, displayName } from "../package.json";
 
 function About() {
 	return (
-		<Box padding={3} display="flex" flexDirection="column" alignItems="center">
+		<Box
+			className="about"
+			padding={3}
+			display="flex"
+			flexDirection="column"
+			alignItems="center"
+		>
 			<Text size="large" textAlign="center">
 				The functionality of this block is provided by the{" "}
 				<Link
@@ -44,7 +50,7 @@ function BlockWithSupertools() {
 	return (
 		<Supertools
 			show={true}
-			// about={<About />}
+			about={<About />}
 			// shortcutKey="d"
 			// timeout="500"
 			// position={Position.bottom}

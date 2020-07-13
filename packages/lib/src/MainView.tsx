@@ -18,6 +18,7 @@ import SelectedRecordViewer from "./SelectedRecordViewer";
 import ActiveViewViewer from "./ActiveViewViewer";
 import SelectedFieldViewer from "./SelectedFieldViewer";
 import SuspenseWrapper from "./SuspenseWrapper";
+import BlockFooter from "./BlockFooter";
 
 enum TabType {
   about = "about",
@@ -32,7 +33,12 @@ enum TabType {
 }
 
 const StyledTabs = styled(Tabs)<{ height: string }>`
-  .ant-tabs-nav {
+  && .about {
+    max-height: ${(props) => `calc(${props.height} - 64px)`};
+    overflow-y: auto;
+  }
+
+  && .ant-tabs-nav {
     margin-bottom: 0;
   }
 
@@ -44,13 +50,13 @@ const StyledTabs = styled(Tabs)<{ height: string }>`
     /* position: relative;
     left: -12px; */
     width: 100%;
-    height: ${(props) => `calc(${props.height} - 54px)`};
-    /* height: calc(100% - 54px); */
+    height: ${(props) => `calc(${props.height} - 61px)`};
     z-index: 100;
     border: none;
   }
 
-  .jsoneditor-tree::-webkit-scrollbar {
+  .jsoneditor-tree::-webkit-scrollbar,
+  .about::-webkit-scrollbar {
     width: 12px;
     height: 12px;
     position: absolute;
@@ -60,13 +66,15 @@ const StyledTabs = styled(Tabs)<{ height: string }>`
     bottom: 0;
   }
 
-  .jsoneditor-tree::-webkit-scrollbar-button {
+  .jsoneditor-tree::-webkit-scrollbar-button,
+  .about::-webkit-scrollbar-button {
     display: none;
     height: 0;
     width: 0;
   }
 
-  .jsoneditor-tree::-webkit-scrollbar-thumb {
+  .jsoneditor-tree::-webkit-scrollbar-thumb,
+  .about::-webkit-scrollbar-thumb {
     background-color: hsla(0, 0%, 0%, 0.35);
     background-clip: padding-box;
     border: 3px solid rgba(0, 0, 0, 0);
@@ -172,7 +180,7 @@ const MainView = ({
     alignItems: "center",
     justifyContent: "center",
     width: style.width,
-    height: `calc(${style.height} - 38px)`
+    height: `calc(${style.height} - 64px)`
   };
 
   // if (style.top != null) {
@@ -191,8 +199,10 @@ const MainView = ({
     <Layout style={style}>
       <Content
         style={{
+          // position: "absolute",
           width: "100%",
-          height: "100%",
+          height: `calc(${style.height} - 26px)`,
+          maxHeight: `calc(${style.height} - 26px)`,
           margin: 0,
           padding: 0,
           backgroundColor: "white"
@@ -276,6 +286,7 @@ const MainView = ({
           </StyledTabs>
         )}
       </Content>
+      <BlockFooter position="absolute" bottom={0} />
     </Layout>
   );
 };
