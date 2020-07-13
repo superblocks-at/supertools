@@ -1,0 +1,6 @@
+[submodule "packages/block"]
+	path = packages/block
+	url = https://github.com/superblocks-at/api-explorer-block.git
+[submodule "packages/lib"]
+	path = packages/lib
+	url = https://github.com/superblocks-at/devtools.git
