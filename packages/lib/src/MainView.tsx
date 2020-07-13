@@ -32,7 +32,7 @@ enum TabType {
   viewport = "viewport"
 }
 
-const StyledTabs = styled(Tabs)<{ height: string }>`
+const StyledTabs = styled(Tabs) <{ height: string }>`
   && .about {
     max-height: ${(props) => `calc(${props.height} - 64px)`};
     overflow-y: auto;
@@ -94,11 +94,13 @@ export interface MainViewProps {
   position?: Position;
   overlap?: number;
   about?: any;
+  header?: any;
 }
 
 const MainView = ({
   position = Position.top,
   overlap = 100,
+  header,
   about
 }: MainViewProps) => {
   log.debug("MainView.render");
@@ -125,7 +127,8 @@ const MainView = ({
     position: "fixed",
     margin: 0,
     padding: 0,
-    zIndex: 100
+    zIndex: 100,
+    backgroundColor: "white"
   };
 
   if (position == Position.top || position == Position.bottom) {
@@ -180,7 +183,7 @@ const MainView = ({
     alignItems: "center",
     justifyContent: "center",
     width: style.width,
-    height: `calc(${style.height} - 64px)`
+    height: header != null ? `calc(${style.height} - 98px)` : `calc(${style.height} - 64px)`
   };
 
   // if (style.top != null) {
@@ -197,12 +200,13 @@ const MainView = ({
   // eslint-disable-next-line
   return (
     <Layout style={style}>
+      {header}
       <Content
         style={{
           // position: "absolute",
           width: "100%",
-          height: `calc(${style.height} - 26px)`,
-          maxHeight: `calc(${style.height} - 26px)`,
+          height: header != null ? `calc(${style.height} - 60px)` : `calc(${style.height} - 26px)`,
+          maxHeight: header != null ? `calc(${style.height} - 60px)` : `calc(${style.height} - 26px)`,
           margin: 0,
           padding: 0,
           backgroundColor: "white"
@@ -213,78 +217,78 @@ const MainView = ({
             <Loader />
           </div>
         ) : (
-          <StyledTabs
-            size="small"
-            type="card"
-            /*
-          // @ts-ignore */
-            activeKey={activeTab}
-            defaultActiveKey={
-              about != null ? TabType.about : TabType.globalConfig
-            }
-            onChange={setActiveTab}
-            height={style.height}
-            style={{ margin: 0, padding: 0 }}
-          >
-            {about != null ? (
+            <StyledTabs
+              size="small"
+              type="card"
+              /*
+            // @ts-ignore */
+              activeKey={activeTab}
+              defaultActiveKey={
+                about != null ? TabType.about : TabType.globalConfig
+              }
+              onChange={setActiveTab}
+              height={header != null ? `calc(${style.height} - 34px)` : style.height}
+              style={{ margin: 0, padding: 0 }}
+            >
+              {about != null ? (
+                <TabPane
+                  style={{ margin: 0, padding: 0 }}
+                  tab="About"
+                  key={TabType.about}
+                >
+                  {about}
+                </TabPane>
+              ) : null}
               <TabPane
                 style={{ margin: 0, padding: 0 }}
-                tab="About"
-                key={TabType.about}
+                tab="GlobalConfig"
+                key={TabType.globalConfig}
               >
-                {about}
+                <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
+                  <GlobalConfigEditor />
+                </SuspenseWrapper>
               </TabPane>
-            ) : null}
-            <TabPane
-              style={{ margin: 0, padding: 0 }}
-              tab="GlobalConfig"
-              key={TabType.globalConfig}
-            >
-              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
-                <GlobalConfigEditor />
-              </SuspenseWrapper>
-            </TabPane>
-            <TabPane tab="Active table" key={TabType.activeTable}>
-              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
-                <ActiveTableViewer />
-              </SuspenseWrapper>
-            </TabPane>
-            <TabPane tab="Active view" key={TabType.activeView}>
-              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
-                <ActiveViewViewer />
-              </SuspenseWrapper>
-            </TabPane>
-            <TabPane tab="Selected record" key={TabType.selectedRecord}>
-              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
-                <SelectedRecordViewer
-                  centeredContentStyle={centeredContentStyle}
-                />
-              </SuspenseWrapper>
-            </TabPane>
-            <TabPane tab="Selected field" key={TabType.selectedField}>
-              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
-                <SelectedFieldViewer
-                  centeredContentStyle={centeredContentStyle}
-                />
-              </SuspenseWrapper>
-            </TabPane>
-            <TabPane tab="Cursor" key={TabType.cursor}>
-              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
-                <CursorViewer />
-              </SuspenseWrapper>
-            </TabPane>
-            <TabPane tab="Session" key={TabType.session}>
-              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
-                <SessionViewer />
-              </SuspenseWrapper>
-            </TabPane>
-            <TabPane tab="Viewport" key={TabType.viewport}>
-              <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
-                <ViewportViewer />
-              </SuspenseWrapper>
-            </TabPane>
-          </StyledTabs>
-        )}
+              <TabPane tab="Active table" key={TabType.activeTable}>
+                <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
+                  <ActiveTableViewer />
+                </SuspenseWrapper>
+              </TabPane>
+              <TabPane tab="Active view" key={TabType.activeView}>
+                <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
+                  <ActiveViewViewer />
+                </SuspenseWrapper>
+              </TabPane>
+              <TabPane tab="Selected record" key={TabType.selectedRecord}>
+                <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
+                  <SelectedRecordViewer
+                    centeredContentStyle={centeredContentStyle}
+                  />
+                </SuspenseWrapper>
+              </TabPane>
+              <TabPane tab="Selected field" key={TabType.selectedField}>
+                <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
+                  <SelectedFieldViewer
+                    centeredContentStyle={centeredContentStyle}
+                  />
+                </SuspenseWrapper>
+              </TabPane>
+              <TabPane tab="Cursor" key={TabType.cursor}>
+                <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
+                  <CursorViewer />
+                </SuspenseWrapper>
+              </TabPane>
+              <TabPane tab="Session" key={TabType.session}>
+                <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
+                  <SessionViewer />
+                </SuspenseWrapper>
+              </TabPane>
+              <TabPane tab="Viewport" key={TabType.viewport}>
+                <SuspenseWrapper spinWrapperStyle={centeredContentStyle}>
+                  <ViewportViewer />
+                </SuspenseWrapper>
+              </TabPane>
+            </StyledTabs>
+          )}
       </Content>
       <BlockFooter position="absolute" bottom={0} />
     </Layout>

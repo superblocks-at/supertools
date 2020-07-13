@@ -4,6 +4,47 @@ import React from "react";
 import { Supertools, Position } from "@superblocks-at/supertools";
 import BlockActiveTableViewer from "./ActiveTableViewer";
 import { name, version, displayName } from "../package.json";
+import styled from "styled-components";
+
+const StyledLink = styled.a`
+  opacity: 1;
+
+  &:active,
+  &:focus {
+    box-shadow: none;
+  }
+
+  &:hover {
+    opacity: 0.75;
+  }
+`;
+
+function Header() {
+	return <Box
+		display="flex"
+		flexDirection="row"
+		alignItems="center"
+		height="32px"
+		width="100%"
+		boxShadow="rgba(0,0,0,0.1) 0 2px 0 0"
+		marginBottom="2px"
+		paddingLeft={3}
+	>
+		<StyledLink display="contents" href="https://superblocks.at/" target="_blank">
+			<img
+				height="16px"
+				src="https://superblocks.at/superblocks-logo-180x180/"
+				style={{ position: "relative", top: "-2px" }}
+			/>
+			<Heading size="xsmall" marginLeft={2} display="inline">
+				Blocks api explorer
+			{/* <Link variant="light" href="https://superblocks.at" fontWeight="bold">
+				Superblocks.at
+			</Link> */}
+			</Heading>
+		</StyledLink>
+	</Box>
+}
 
 function About() {
 	return (
@@ -50,11 +91,12 @@ function BlockWithSupertools() {
 	return (
 		<Supertools
 			show={true}
+			header={<Header />}
 			about={<About />}
-			// shortcutKey="d"
-			// timeout="500"
-			// position={Position.bottom}
-			// overlap={70}
+		// shortcutKey="d"
+		// timeout="500"
+		// position={Position.bottom}
+		// overlap={70}
 		/>
 	);
 }

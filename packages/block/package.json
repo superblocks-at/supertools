@@ -10,15 +10,18 @@
 		"@superblocks-at/supertools": "file:../lib",
 		"loglevel": "^1.6.8",
 		"react": "^16.13.1",
-		"react-dom": "^16.13.1"
+		"react-dom": "^16.13.1",
+		"styled-components": "^5.1.1"
 	},
 	"devDependencies": {
+		"@airtable/blocks-cli": "0.0.54",
 		"@types/babel-core": "^6.25.6",
 		"eslint": "^7.3.0",
 		"eslint-plugin-react": "^7.20.0",
 		"eslint-plugin-react-hooks": "^4.0.4"
 	},
 	"scripts": {
+		"start": "block run",
 		"lint": "eslint frontend"
 	}
 }

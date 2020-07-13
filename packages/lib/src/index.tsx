@@ -21,6 +21,7 @@ export const Supertools = ({
   position = Position.bottom,
   overlap = 100,
   show = false,
+  header,
   about
 }: SupertoolsProps) => {
   const [keystrokes, setKeystrokes] = useState<number>(0);
@@ -87,5 +88,5 @@ export const Supertools = ({
     return null;
   }
 
-  return <MainView position={position} overlap={overlap} about={about} />;
+  return <MainView position={position} overlap={overlap} header={header} about={about} />;
 };
