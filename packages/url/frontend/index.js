@@ -17,7 +17,7 @@ import {
 	TextButton,
 } from "@airtable/blocks/ui";
 
-import { Supertools } from "@superblocks-at/supertools";
+import { Devtools } from "@superblocks-at/devtools";
 import { useSettings } from "./settings";
 import SettingsForm from "./SettingsForm";
 
@@ -155,17 +155,17 @@ function UrlPreviewBlock() {
 
 	return (
 		<Box>
-			<Supertools />
+			<Devtools />
 			{isSettingsOpen ? (
 				<SettingsForm setIsSettingsOpen={setIsSettingsOpen} />
 			) : (
-				<RecordPreviewWithDialog
-					activeTable={activeTable}
-					selectedRecordId={selectedRecordId}
-					selectedFieldId={selectedFieldId}
-					setIsSettingsOpen={setIsSettingsOpen}
-				/>
-			)}
+					<RecordPreviewWithDialog
+						activeTable={activeTable}
+						selectedRecordId={selectedRecordId}
+						selectedFieldId={selectedFieldId}
+						setIsSettingsOpen={setIsSettingsOpen}
+					/>
+				)}
 			{recordActionErrorMessage && (
 				<Dialog onClose={() => setRecordActionErrorMessage("")} maxWidth={400}>
 					<Dialog.CloseButton />

@@ -1,12 +1,13 @@
 {
 	"dependencies": {
-		"@airtable/blocks": "0.0.52",
-		"@superblocks-at/supertools": "^0.9.4",
+		"@airtable/blocks": "0.0.53",
+		"@superblocks-at/devtools": "file:../lib",
 		"loglevel": "^1.6.8",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1"
 	},
 	"devDependencies": {
+		"@airtable/blocks-cli": "0.0.54",
 		"@types/babel-core": "^6.25.6",
 		"eslint": "^7.3.0",
 		"eslint-plugin-react": "^7.20.0",
