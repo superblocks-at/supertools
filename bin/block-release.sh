@@ -7,5 +7,5 @@ cd $REPO_HOME/packages/lib && npm version patch
 cd $REPO_HOME/packages/lib && npm publish
 cd $REPO_HOME/packages/block && npm remove @superblocks-at/devtools
 cd $REPO_HOME/packages/block && npm i --save @superblocks-at/devtools
-cd $REPO_HOME/packages/block && block release
+cd $REPO_HOME/packages/block && npx block release
 # cd $REPO_HOME/packages/block && block release --remote airtable
